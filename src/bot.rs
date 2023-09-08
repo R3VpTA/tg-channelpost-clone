@@ -60,6 +60,6 @@ async fn resolve_media_group(tg: Bot) {
             element.send(&tg).await;
         }
 
-        tokio::time::sleep(tokio::time::Duration::from_secs(10)).await;
+        tokio::time::sleep(tokio::time::Duration::from_secs(5)).await;
     }
 }
