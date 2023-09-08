@@ -11,7 +11,8 @@ Example: /addchat @mychannel @mychannelclone
 3. /id - By default, this command returns the ChatID of the current chat. However, if you reply to a message that was forwarded from another chat, it will return the ChatID of the chat from which the message was originally forwarded.  
 
 # Important
-You must have a channels.json folder in the same directory as the executable that follows the structure used by the bot.
+You must have a channels.json inside the config folder in the root of the executable
+The json file follows the structure used by the bot.
 ```json
 [
     {
