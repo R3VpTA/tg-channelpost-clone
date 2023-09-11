@@ -48,10 +48,12 @@ async fn resolve_media_group(tg: Bot) {
             let now = chrono::Utc::now().timestamp_millis();
 
             let mut elements: Vec<ScheduleMediaGroup> = vec![];
-            for (index, element) in schedules.clone().iter().enumerate().rev() {
-                if now > element.schedule_millis {
-                    elements.push(schedules.remove(index));
+            for element in schedules.clone().iter() {
+                if now < element.schedule_millis {
+                    break;
                 }
+                elements.push(element.to_owned());
+                schedules.pop_front();
             }
             drop(schedule);
             elements

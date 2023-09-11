@@ -1,4 +1,7 @@
-use std::sync::{Arc, Mutex};
+use std::{
+    collections::VecDeque,
+    sync::{Arc, Mutex},
+};
 
 use chrono::{Duration, Utc};
 use lazy_static::lazy_static;
@@ -35,7 +38,7 @@ impl ScheduleMediaGroup {
         }
     }
     pub fn insert(
-        schedule: &mut Vec<Self>,
+        schedule: &mut VecDeque<Self>,
         media: MediaKind,
         media_group_id: String,
         send_to: Vec<String>,
@@ -52,7 +55,7 @@ impl ScheduleMediaGroup {
                 let schedule_milis =
                     Utc::now().timestamp_millis() + Duration::seconds(5).num_milliseconds();
                 let new_schedule = Self::new(media_group_id, vec![media], send_to, schedule_milis);
-                schedule.push(new_schedule);
+                schedule.push_back(new_schedule);
             }
         }
     }
@@ -127,6 +130,6 @@ impl ScheduleMediaGroup {
 }
 
 lazy_static! {
-    pub static ref SCHEDULE_MEDIA_GROUP: Arc<Mutex<Vec<ScheduleMediaGroup>>> =
-        Arc::new(Mutex::new(vec![]));
+    pub static ref SCHEDULE_MEDIA_GROUP: Arc<Mutex<VecDeque<ScheduleMediaGroup>>> =
+        Arc::new(Mutex::new(VecDeque::new()));
 }
