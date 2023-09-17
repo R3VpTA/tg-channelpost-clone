@@ -8,7 +8,10 @@ edition = "2021"
 [dependencies]
 chrono = "0.4.29"
 clap = { version = "4.4.2", features = ["derive"] }
+env_logger = "0.10.0"
 lazy_static = "1.4.0"
+log = "0.4.20"
+pretty_env_logger = "0.5.0"
 serde = { version = "1.0.188", features = ["derive"] }
 serde_json = "1.0.105"
 teloxide = {version="0.12.2", features = ["macros"]}

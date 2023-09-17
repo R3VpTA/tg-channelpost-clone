@@ -23,7 +23,7 @@ pub async fn start_bot() {
         resolve_media_group(bot).await;
     });
 
-    println!("Bot {} is running", tg.get_me().await.unwrap().full_name());
+    log::info!("Bot {} is running", tg.get_me().await.unwrap().full_name());
 
     let handler = dptree::entry()
         .branch(Update::filter_channel_post().endpoint(copy_post))

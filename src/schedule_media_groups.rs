@@ -123,6 +123,7 @@ impl ScheduleMediaGroup {
             .send_to
             .iter()
             .map(|to| tg.send_media_group(to.to_string(), input_media_group.clone()));
+        log::info!("Cloning messages to {} targets.", msgs.len());
         for msg in msgs {
             tokio::spawn(async { msg.await });
         }

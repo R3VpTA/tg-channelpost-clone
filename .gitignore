@@ -1,3 +1,4 @@
 /target
 /config/channels.json
 run.sh
+Cargo.lock

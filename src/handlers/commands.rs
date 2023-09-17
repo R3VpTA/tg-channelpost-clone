@@ -70,8 +70,8 @@ async fn add_chat(
             return Ok(());
         }
         (Err(e1), Err(e2)) => {
-            println!("Not found chat 1: \n{e1}");
-            println!("Not found chat 2: \n{e2}");
+            log::warn!("Not found chat 1: \n{e1}");
+            log::warn!("Not found chat 2: \n{e2}");
             tg.send_message(
                 msg.chat.id,
                 format!("Could not find chat \"{}\" and \"{}\".", from, to),
@@ -101,7 +101,7 @@ async fn add_chat(
         Ok(_) => {
             let new_chat_msg =
                 format!("Chat \"{to}\" added to listen to channel posts of channel \"{from}\"");
-            println!("{new_chat_msg}");
+            log::info!("{new_chat_msg}");
             tg.send_message(msg.chat.id, new_chat_msg).await?;
         }
 

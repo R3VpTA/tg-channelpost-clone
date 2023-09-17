@@ -1,6 +1,5 @@
 use std::{
     borrow::BorrowMut,
-    collections::VecDeque,
     sync::{Arc, Mutex},
 };
 
@@ -20,6 +19,10 @@ pub async fn copy_post(
     msg: Message,
     channels: Arc<Mutex<Vec<ChannelStorage>>>,
 ) -> HandlerResult {
+    log::info!(
+        "Received a channel post from {}",
+        msg.chat.username().unwrap_or(&msg.chat.id.to_string()),
+    );
     let target = {
         let channels = channels.lock().unwrap();
 
@@ -33,11 +36,17 @@ pub async fn copy_post(
             return Ok(());
         }
     };
+    log::debug!("Target: {:?}", target);
 
     match msg.media_group_id() {
         None => {
             for to in target.to {
-                tg.copy_message(to, msg.chat.id, msg.id).await?;
+                log::info!("Cloning Post to {to}... ");
+                if tg.copy_message(to, msg.chat.id, msg.id).await.is_ok() {
+                    log::info!("Success.");
+                } else {
+                    log::warn!("Failed.")
+                }
             }
             return Ok(());
         }
