@@ -81,6 +81,9 @@ async fn add_chat(
         }
     }
 
+    let from = tg.get_chat(from).await?.id.to_string();
+    let to = tg.get_chat(to).await?.id.to_string();
+
     let channels_ = {
         let mutex = channels.lock().unwrap();
         let channels_: Vec<ChannelStorage> = mutex.to_owned();
